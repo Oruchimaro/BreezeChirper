@@ -1,5 +1,7 @@
 # Breez install
 
+[Tutorial Link](https://www.youtube.com/watch?v=cVWO2TW9vHw) 20:20
+
 ```
     composer require laravel/breeze --dev
     
@@ -12,3 +14,16 @@
     php artisan breeze:install livewire
     php artisan breeze:install inertia
 ```
+
+
+
+### URLS
+
+#### Sail
+    - App : localhost:8181
+    - mailpit : localhost:8025
+    - mysql : 
+        - host : localhost
+        - port : 3311
+        - user : sail
+        - password : password
