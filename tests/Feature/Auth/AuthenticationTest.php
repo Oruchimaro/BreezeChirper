@@ -18,17 +18,45 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_users_can_authenticate_using_the_login_screen(): void
+    public function test_users_can_authenticate_using_the_email(): void
     {
         $user = User::factory()->create();
 
+
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'input_type' => $user->email,
             'password' => 'password',
         ]);
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
+    }
+
+    public function test_users_can_authenticate_using_the_username(): void
+    {
+        $user = User::factory()->create();
+
+
+        $response = $this->post('/login', [
+            'input_type' => $user->username,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(RouteServiceProvider::HOME);
+    }
+
+    public function test_users_can_not_authenticate_using_invalid_username(): void
+    {
+        $user = User::factory()->create();
+
+
+        $response = $this->post('/login', [
+            'input_type' => $user->username . 'randomstring',
+            'password' => 'password',
+        ]);
+
+        $response->assertInvalid(['username']);
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
