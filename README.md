@@ -1,6 +1,6 @@
 # Breez install
 
-[Tutorial Link](https://www.youtube.com/watch?v=cVWO2TW9vHw) 35:00
+[Tutorial Link](https://www.youtube.com/watch?v=cVWO2TW9vHw) 1:06
 
 ```
     composer require laravel/breeze --dev
