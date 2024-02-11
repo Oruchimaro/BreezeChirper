@@ -31,10 +31,10 @@ class NewPasswordController extends Controller
     {
         $input_type = filter_var(
             $request->input('input_type'),
-             FILTER_VALIDATE_EMAIL
-             )
-             ? 'email'
-             :'username';
+            FILTER_VALIDATE_EMAIL
+        )
+            ? 'email'
+            : 'username';
 
         $request->merge([
             $input_type => $request->input('input_type')
@@ -57,6 +57,7 @@ class NewPasswordController extends Controller
                 $user->forceFill([
                     'password' => Hash::make($request->password),
                     'remember_token' => Str::random(60),
+                    'system_generated_password' => false
                 ])->save();
 
                 event(new PasswordReset($user));
@@ -67,8 +68,8 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only($input_type))
-                            ->withErrors([$input_type => __($status)]);
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withInput($request->only($input_type))
+            ->withErrors([$input_type => __($status)]);
     }
 }

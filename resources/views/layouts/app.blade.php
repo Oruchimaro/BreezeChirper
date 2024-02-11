@@ -29,13 +29,16 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+        <header class="bg-white dark:bg-gray-800 shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
         @endif
 
+        <div class="bg-red-400 text-white text-center font-bold border-2 border-red-900 py-2 px-4 rounded mt-2 relative {{auth()->user()->hasNotUpdatedPassword() ? '' : 'hidden'}}">
+            <p>{{ __('messages.password') }}</p>
+        </div>
         <!-- Page Content -->
         <main>
             {{ $slot }}

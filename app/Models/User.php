@@ -21,11 +21,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'provider',
         'provider_id',
         'provider_token',
+        'system_generated_password',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'system_generated_password',
     ];
 
     protected $casts = [
@@ -35,18 +37,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public static function generateUsername($username)
     {
-        if (!$username)
-        {
+        if (!$username) {
             $username = Str::lower(Str::random(8));
         }
 
-        if(User::whereUsername($username)->exists())
-        {
-            $newUsername = $username. Str::random(5);
+        if (User::whereUsername($username)->exists()) {
+            $newUsername = $username . Str::random(5);
 
             $username = self::generateUsername($newUsername);
         }
 
         return $username;
+    }
+
+    public function hasNotUpdatedPassword()
+    {
+        return $this->system_generated_password && $this->provider;
+    }
+
+    public function hasUpdatedPassword()
+    {
+        return !$this->system_generated_password;
     }
 }

@@ -7,4 +7,5 @@ return [
 			'no_email_address_provided' => 'The provider did not present an email address, please change the method for login!',
 		]
 	],
+	'password' => 'Please Reset your password!!!',
 ];
