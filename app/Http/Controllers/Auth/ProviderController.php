@@ -21,12 +21,12 @@ class ProviderController extends Controller
             $socialUser = Socialite::driver($provider)->user();
 
             $userWithAnotherProvider = User::where([
-                    'email' => $socialUser->getEmail(),
-                ])->first();
+                'email' => $socialUser->getEmail(),
+            ])->first();
 
             if ($userWithAnotherProvider && $provider !== $userWithAnotherProvider->provider) {
                 return redirect("/login")->withErrors([
-                    'email' => 'This account uses different method to login!'
+                    'email' => __('messages.login.oauth.login_with_different_provider')
                 ]);
             }
 
@@ -35,13 +35,18 @@ class ProviderController extends Controller
                 'provider_id' => $socialUser->id,
             ])->first();
 
-            if (!$user)
-            {
+            if (!$user) {
+                if (!$socialUser->getEmail()) {
+                    return redirect("/login")->withErrors([
+                        'email' => __('messages.login.oauth.no_email_address_provided')
+                    ]);
+                }
+
                 $user = User::create([
                     'provider' => $provider,
                     'provider_id' => $socialUser->getId(),
                     'name' => $socialUser->getName(),
-                    'email' => $socialUser->getEmail() ?? $socialUser->nickname . '@' . $provider . '.com',
+                    'email' => $socialUser->getEmail(),
                     'username' => User::generateUsername($socialUser->getNickname()),
                     'provider_token' => $socialUser->token,
                     'email_verified_at' => now(),
@@ -51,8 +56,6 @@ class ProviderController extends Controller
             Auth::login($user);
 
             return redirect('/dashboard');
-
-
         } catch (\Throwable $th) {
             return redirect("/login");
         }
