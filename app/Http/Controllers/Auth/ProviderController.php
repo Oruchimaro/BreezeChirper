@@ -20,6 +20,8 @@ class ProviderController extends Controller
         try {
             $socialUser = Socialite::driver($provider)->user();
 
+            dd($socialUser);
+
             $userWithAnotherProvider = User::where([
                 'email' => $socialUser->getEmail(),
             ])->first();

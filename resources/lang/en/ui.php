@@ -8,7 +8,7 @@ return [
     'log_in' => 'Log In',
     'register' => 'Register',
     'login' => [
-        'oauth_signin_button' => 'Sign in with ',
+        'oauth_signin_button' => 'Sign in with :provider',
         'input_email_username' => 'Email/Username',
         'input_password' => 'Password',
         'remember_me' => 'Remember Me',

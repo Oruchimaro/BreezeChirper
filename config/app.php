@@ -177,6 +177,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // Custom providers
+        \SocialiteProviders\Manager\ServiceProvider::class,
     ])->toArray(),
 
     /*

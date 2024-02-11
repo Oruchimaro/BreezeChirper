@@ -8,7 +8,7 @@ return [
     'log_in' => 'ورود',
     'register' => 'ثبت نام',
     'login' => [
-        'oauth_signin_button' => 'ورود با ',
+        'oauth_signin_button' => 'ورود با :provider',
         'input_email_username' => 'نام کاربری | ایمیل',
         'input_password' => 'رمز عبور',
         'remember_me' => 'مرا به خاطر نگهدار',

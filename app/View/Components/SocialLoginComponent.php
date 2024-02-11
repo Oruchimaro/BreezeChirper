@@ -8,8 +8,10 @@ use Illuminate\View\Component;
 
 class SocialLoginComponent extends Component
 {
-    public function __construct(public string $provider)
-    {
+    public function __construct(
+        public string $provider,
+        public bool $visibility
+    ) {
         //
     }
 
