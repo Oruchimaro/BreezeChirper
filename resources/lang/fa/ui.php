@@ -12,6 +12,6 @@ return [
         'input_email_username' => 'نام کاربری | ایمیل',
         'input_password' => 'رمز عبور',
         'remember_me' => 'مرا به خاطر نگهدار',
-        'forgot_password_link' => 'بازیابی رمز عبور'
+        'forgot_password_link' => 'بازیابی رمز عبور',
     ],
 ];

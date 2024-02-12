@@ -12,6 +12,6 @@ return [
         'input_email_username' => 'Email/Username',
         'input_password' => 'Password',
         'remember_me' => 'Remember Me',
-        'forgot_password_link' => 'Forgot your password?'
+        'forgot_password_link' => 'Forgot your password?',
     ],
 ];
