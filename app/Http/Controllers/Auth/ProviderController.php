@@ -21,22 +21,19 @@ class ProviderController extends Controller
         try {
             $socialUser = Socialite::driver($provider)->user();
 
-            $userWithAnotherProvider = User::where([
-                'email' => $socialUser->getEmail(),
-            ])->first();
-
-            if ($userWithAnotherProvider && $provider !== $userWithAnotherProvider->provider) {
-                return redirect("/login")->withErrors([
-                    'email' => __('messages.login.oauth.login_with_different_provider')
-                ]);
-            }
-
             $user = User::where([
                 'provider' => $provider,
                 'provider_id' => $socialUser->id,
             ])->first();
 
             if (!$user) {
+
+                if (User::where('email', $socialUser->getEmail())->exists()) {
+                    return redirect("/login")->withErrors([
+                        'email' => __('messages.login.oauth.login_with_different_provider')
+                    ]);
+                }
+
                 if (!$socialUser->getEmail()) {
                     return redirect("/login")->withErrors([
                         'email' => __('messages.login.oauth.no_email_address_provided')
