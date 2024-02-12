@@ -29,5 +29,29 @@ For Production Env we need to create a owner user first, for that we can use thi
     php artisan translations:contributor
 ```
 
-You can access the [Translation UI](<YOUR APP URL>/translations) . Login with the user u have created and see the languages.
+You can access the Translation UI : ``<YOUR APP URL>/translations`` . Login with the user u have created and see the languages.
 You can add a language and add the translations for it (custom or from google translate) and then publish it so it can be viewed.
+
+
+I also added a middleware to automatically change the locale of app based on a query param or a header value.
+
+```php
+    class SetLocaleMiddleware
+    {
+        public function handle(Request $request, Closure $next): Response
+        {
+            if($request->has('locale'))
+            {
+                app()->setLocale($request->get('locale'));
+            }
+
+            if($request->hasHeader('locale'))
+            {
+                app()->setLocale($request->get('locale'));
+            }
+
+            return $next($request);
+        }
+    }
+
+```
